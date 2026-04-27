@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexAuth — Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       ANIMATED BACKGROUND PARTICLES
+  ═══════════════════════════════════════════ -->
+  <div class="bg-animation">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN SPLIT-SCREEN CONTAINER
+  ═══════════════════════════════════════════ -->
+  <div class="container">
+
+    <!-- ── LEFT PANEL: Branding ── -->
+    <div class="left-panel">
+      <div class="brand">
+        <div class="logo">
+          <i class="ri-shield-keyhole-fill"></i>
+        </div>
+        <h1 class="brand-name">NexAuth</h1>
+        <p class="brand-tagline">Secure. Simple. Seamless.</p>
+      </div>
+
+      <div class="illustration">
+        <div class="floating-card card-1">
+          <i class="ri-lock-password-fill"></i>
+          <span>256-bit Encryption</span>
+        </div>
+        <div class="floating-card card-2">
+          <i class="ri-shield-check-fill"></i>
+          <span>JWT Protected</span>
+        </div>
+        <div class="floating-card card-3">
+          <i class="ri-database-2-fill"></i>
+          <span>MongoDB Backed</span>
+        </div>
+        <div class="center-circle">
+          <i class="ri-user-3-fill"></i>
+        </div>
+      </div>
+
+      <p class="left-footer">Your identity, protected at every step.</p>
+    </div>
+
+    <!-- ── RIGHT PANEL: Auth Forms ── -->
+    <div class="right-panel">
+
+      <!-- Dark/Light Mode Toggle -->
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="ri-moon-fill" id="themeIcon"></i>
+      </button>
+
+      <!-- Toggle Tabs: Sign In / Sign Up -->
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn" id="registerTab" onclick="switchTab('register')">Sign Up</button>
+        <div class="tab-indicator" id="tabIndicator"></div>
+      </div>
+
+      <!-- ── SIGN IN FORM ── -->
+      <form class="auth-form active" id="loginForm" novalidate>
+        <div class="form-header">
+          <h2>Welcome back</h2>
+          <p>Sign in to your account to continue</p>
+        </div>
+
+        <!-- Email Field -->
+        <div class="input-group" id="login-email-group">
+          <i class="ri-mail-line input-icon"></i>
+          <input type="email" id="loginEmail" placeholder=" " autocomplete="email" />
+          <label for="loginEmail">Email address</label>
+          <span class="validation-msg" id="loginEmailMsg"></span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="input-group" id="login-password-group">
+          <i class="ri-lock-line input-icon"></i>
+          <input type="password" id="loginPassword" placeholder=" " autocomplete="current-password" />
+          <label for="loginPassword">Password</label>
+          <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">
+            <i class="ri-eye-off-line"></i>
+          </button>
+          <span class="validation-msg" id="loginPasswordMsg"></span>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe" />
+            <span class="checkmark"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="loginSubmitBtn" disabled>
+          <span class="btn-text">Sign In</span>
+          <i class="ri-arrow-right-line"></i>
+          <div class="btn-loader" id="loginLoader"></div>
+        </button>
+
+        <!-- Global message -->
+        <div class="form-message" id="loginMessage"></div>
+
+        <!-- Social Login (UI only) -->
+        <!-- <div class="social-divider"><span>or continue with</span></div>
+        <div class="social-btns">
+          <button type="button" class="social-btn"><i class="ri-google-fill"></i> Google</button>
+          <button type="button" class="social-btn"><i class="ri-github-fill"></i> GitHub</button>
+        </div> -->
+      </form>
+
+      <!-- ── SIGN UP FORM ── -->
+      <form class="auth-form" id="registerForm" novalidate>
+        <div class="form-header">
+          <h2>Create account</h2>
+          <p>Join us today, it's completely free</p>
+        </div>
+
+        <!-- Name Field -->
+        <div class="input-group" id="reg-name-group">
+          <i class="ri-user-line input-icon"></i>
+          <input type="text" id="regName" placeholder=" " autocomplete="name" />
+          <label for="regName">Full name</label>
+          <span class="validation-msg" id="regNameMsg"></span>
+        </div>
+
+        <!-- Email Field -->
+        <div class="input-group" id="reg-email-group">
+          <i class="ri-mail-line input-icon"></i>
+          <input type="email" id="regEmail" placeholder=" " autocomplete="email" />
+          <label for="regEmail">Email address</label>
+          <span class="validation-msg" id="regEmailMsg"></span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="input-group" id="reg-password-group">
+          <i class="ri-lock-line input-icon"></i>
+          <input type="password" id="regPassword" placeholder=" " autocomplete="new-password" />
+          <label for="regPassword">Password</label>
+          <button type="button" class="toggle-password" onclick="togglePassword('regPassword', this)">
+            <i class="ri-eye-off-line"></i>
+          </button>
+          <span class="validation-msg" id="regPasswordMsg"></span>
+        </div>
+
+        <!-- Password Strength Bar -->
+        <div class="strength-container" id="strengthContainer">
+          <div class="strength-bar">
+            <div class="strength-fill" id="strengthFill"></div>
+          </div>
+          <span class="strength-label" id="strengthLabel">Password strength</span>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group" id="reg-confirm-group">
+          <i class="ri-lock-2-line input-icon"></i>
+          <input type="password" id="regConfirm" placeholder=" " autocomplete="new-password" />
+          <label for="regConfirm">Confirm password</label>
+          <button type="button" class="toggle-password" onclick="togglePassword('regConfirm', this)">
+            <i class="ri-eye-off-line"></i>
+          </button>
+          <span class="validation-msg" id="regConfirmMsg"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="registerSubmitBtn" disabled>
+          <span class="btn-text">Create Account</span>
+          <i class="ri-arrow-right-line"></i>
+          <div class="btn-loader" id="registerLoader"></div>
+        </button>
+
+        <!-- Global message -->
+        <div class="form-message" id="registerMessage"></div>
+
+        <!-- Social Login (UI only) -->
+        <!-- <div class="social-divider"><span>or sign up with</span></div>
+        <div class="social-btns">
+          <button type="button" class="social-btn"><i class="ri-google-fill"></i> Google</button>
+          <button type="button" class="social-btn"><i class="ri-github-fill"></i> GitHub</button>
+        </div> -->
+      </form>
+
+    </div><!-- end right-panel -->
+  </div><!-- end container -->
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexAuth — Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-animation">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="ri-shield-keyhole-fill"></i>
+      <span>NexAuth</span>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="ri-moon-fill" id="themeIcon"></i>
+      </button>
+      <button class="logout-btn" onclick="logout()">
+        <i class="ri-logout-box-r-line"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="main">
+
+    <!-- Loading State -->
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading your profile...</p>
+    </div>
+
+    <!-- Dashboard Content (hidden until loaded) -->
+    <div class="dashboard-content" id="dashboardContent" style="display:none">
+
+      <!-- THANK YOU Banner (shown after registration) -->
+      <div class="welcome-banner thankyou-banner" id="thankyouBanner" style="display:none">
+        <div class="welcome-text">
+          <div class="banner-badge">🎉 Registration Successful</div>
+          <h1 class="welcome-name">Thank You, <span id="userNameThanks">there</span>!</h1>
+          <p class="welcome-desc">Your account has been created. You're all set to explore NexAuth.</p>
+        </div>
+        <div class="welcome-avatar thankyou-avatar" id="userAvatarThanks">?</div>
+      </div>
+
+      <!-- WELCOME BACK Banner (shown after login) -->
+      <div class="welcome-banner login-banner" id="loginBanner" style="display:none">
+        <div class="welcome-text">
+          <div class="banner-badge">👋 Welcome Back</div>
+          <h1 class="welcome-name">Good to see you, <span id="userName">there</span>!</h1>
+          <p class="welcome-desc">You're securely signed in to your NexAuth account.</p>
+        </div>
+        <div class="welcome-avatar" id="userAvatar">?</div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="ri-shield-check-fill"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Account Status</span>
+            <span class="stat-value">Active</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="ri-key-2-fill"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Auth Method</span>
+            <span class="stat-value">JWT Token</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="ri-database-2-fill"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Database</span>
+            <span class="stat-value">MongoDB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <h2><i class="ri-user-3-fill"></i> Profile Details</h2>
+          <span class="badge">Verified</span>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-field">
+            <span class="field-label"><i class="ri-user-line"></i> Full Name</span>
+            <span class="field-value" id="profileName">—</span>
+          </div>
+          <div class="profile-field">
+            <span class="field-label"><i class="ri-mail-line"></i> Email Address</span>
+            <span class="field-value" id="profileEmail">—</span>
+          </div>
+          <div class="profile-field">
+            <span class="field-label"><i class="ri-calendar-line"></i> Member Since</span>
+            <span class="field-value" id="profileDate">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Token Info Card removed -->
+
+    </div><!-- end dashboard-content -->
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
