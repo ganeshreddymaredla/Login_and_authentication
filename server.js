@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 // ─── API Routes ───────────────────────────────
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
+app.use('/api/tasks', require('./routes/tasks'));
 
 // ─── Serve Frontend Pages ─────────────────────
 // Serve dashboard page

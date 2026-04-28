@@ -10,13 +10,12 @@
 </head>
 <body>
 
-  <!-- Animated background -->
   <div class="bg-animation">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
   </div>
 
-  <!-- ── NAVBAR ── -->
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-brand">
       <i class="ri-shield-keyhole-fill"></i>
@@ -33,86 +32,96 @@
     </div>
   </nav>
 
-  <!-- ── MAIN CONTENT ── -->
+  <!-- MAIN -->
   <main class="main">
 
-    <!-- Loading State -->
+    <!-- Loading -->
     <div class="loading-state" id="loadingState">
       <div class="spinner"></div>
-      <p>Loading your profile...</p>
+      <p>Loading your dashboard...</p>
     </div>
 
-    <!-- Dashboard Content (hidden until loaded) -->
+    <!-- Dashboard Content -->
     <div class="dashboard-content" id="dashboardContent" style="display:none">
 
-      <!-- THANK YOU Banner (shown after registration) -->
-      <div class="welcome-banner thankyou-banner" id="thankyouBanner" style="display:none">
+      <!-- Welcome Banner -->
+      <div class="welcome-banner" id="welcomeBanner">
         <div class="welcome-text">
-          <div class="banner-badge">🎉 Registration Successful</div>
-          <h1 class="welcome-name">Thank You, <span id="userNameThanks">there</span>!</h1>
-          <p class="welcome-desc">Your account has been created. You're all set to explore NexAuth.</p>
-        </div>
-        <div class="welcome-avatar thankyou-avatar" id="userAvatarThanks">?</div>
-      </div>
-
-      <!-- WELCOME BACK Banner (shown after login) -->
-      <div class="welcome-banner login-banner" id="loginBanner" style="display:none">
-        <div class="welcome-text">
-          <div class="banner-badge">👋 Welcome Back</div>
-          <h1 class="welcome-name">Good to see you, <span id="userName">there</span>!</h1>
-          <p class="welcome-desc">You're securely signed in to your NexAuth account.</p>
+          <div class="banner-badge" id="bannerBadge">👋 Welcome Back</div>
+          <h1 class="welcome-name">Hello, <span id="userName">there</span> 👋</h1>
+          <p class="welcome-desc">Here's your personal task board. Stay productive!</p>
         </div>
         <div class="welcome-avatar" id="userAvatar">?</div>
       </div>
 
-      <!-- Stats Cards -->
+      <!-- Stats Row -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon green"><i class="ri-shield-check-fill"></i></div>
+          <div class="stat-icon blue"><i class="ri-list-check-2"></i></div>
           <div class="stat-info">
-            <span class="stat-label">Account Status</span>
-            <span class="stat-value">Active</span>
+            <span class="stat-label">Total Tasks</span>
+            <span class="stat-value" id="statTotal">0</span>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon blue"><i class="ri-key-2-fill"></i></div>
+          <div class="stat-icon green"><i class="ri-checkbox-circle-fill"></i></div>
           <div class="stat-info">
-            <span class="stat-label">Auth Method</span>
-            <span class="stat-value">JWT Token</span>
+            <span class="stat-label">Completed</span>
+            <span class="stat-value" id="statDone">0</span>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon purple"><i class="ri-database-2-fill"></i></div>
+          <div class="stat-icon orange"><i class="ri-time-line"></i></div>
           <div class="stat-info">
-            <span class="stat-label">Database</span>
-            <span class="stat-value">MongoDB</span>
+            <span class="stat-label">Pending</span>
+            <span class="stat-value" id="statPending">0</span>
           </div>
         </div>
       </div>
 
-      <!-- Profile Card -->
-      <div class="profile-card">
-        <div class="profile-card-header">
-          <h2><i class="ri-user-3-fill"></i> Profile Details</h2>
-          <span class="badge">Verified</span>
-        </div>
-        <div class="profile-fields">
-          <div class="profile-field">
-            <span class="field-label"><i class="ri-user-line"></i> Full Name</span>
-            <span class="field-value" id="profileName">—</span>
-          </div>
-          <div class="profile-field">
-            <span class="field-label"><i class="ri-mail-line"></i> Email Address</span>
-            <span class="field-value" id="profileEmail">—</span>
-          </div>
-          <div class="profile-field">
-            <span class="field-label"><i class="ri-calendar-line"></i> Member Since</span>
-            <span class="field-value" id="profileDate">—</span>
+      <!-- To-Do Card -->
+      <div class="todo-card">
+        <div class="todo-header">
+          <h2><i class="ri-task-line"></i> My Tasks</h2>
+          <!-- Filter Tabs -->
+          <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+            <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">Pending</button>
+            <button class="filter-btn" data-filter="completed" onclick="setFilter('completed')">Completed</button>
           </div>
         </div>
-      </div>
 
-      <!-- Token Info Card removed -->
+        <!-- Add Task -->
+        <div class="add-task-row">
+          <div class="add-task-input-wrap">
+            <i class="ri-add-circle-line"></i>
+            <input
+              type="text"
+              id="taskInput"
+              placeholder="Add a new task and press Enter..."
+              maxlength="200"
+              autocomplete="off"
+            />
+          </div>
+          <button class="add-btn" id="addBtn" onclick="addTask()">
+            <i class="ri-send-plane-fill"></i>
+            <span>Add</span>
+          </button>
+        </div>
+        <div class="task-error" id="taskError"></div>
+
+        <!-- Task List -->
+        <div class="task-list" id="taskList">
+          <!-- tasks rendered here -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display:none">
+          <i class="ri-inbox-2-line"></i>
+          <p id="emptyMsg">No tasks yet. Add your first task above!</p>
+        </div>
+
+      </div><!-- end todo-card -->
 
     </div><!-- end dashboard-content -->
   </main>
